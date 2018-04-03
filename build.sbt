@@ -1,4 +1,4 @@
-name := """app"""
+name := """crm-service"""
 
 version := "1.0-SNAPSHOT"
 
