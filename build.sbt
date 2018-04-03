@@ -6,11 +6,14 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.12.2"
 
+lazy val postgresVersion = "9.4.1209"
 
 libraryDependencies ++= Seq(
   javaWs,
   guice,
-  javaJdbc
+  javaJdbc,
+
+  "org.postgresql"  % "postgresql"    % postgresVersion
 )
 
 
