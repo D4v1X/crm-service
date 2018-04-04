@@ -7,13 +7,18 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 scalaVersion := "2.12.2"
 
 lazy val postgresVersion = "9.4.1209"
+lazy val jooqVersion = "3.9.3"
 
 libraryDependencies ++= Seq(
   javaWs,
   guice,
   javaJdbc,
 
-  "org.postgresql"  % "postgresql"    % postgresVersion
+  "org.postgresql"  % "postgresql"    % postgresVersion,
+
+  "org.jooq"        % "jooq"          % jooqVersion,
+  "org.jooq"        % "jooq-meta"     % jooqVersion,
+  "org.jooq"        % "jooq-codegen"  % jooqVersion
 )
 
 
