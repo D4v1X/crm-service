@@ -1,0 +1,6 @@
+
+POST          /           controllers.CustomerController.create()
+GET           /           controllers.CustomerController.list()
+GET           /:id        controllers.CustomerController.get(id: Long)
+PUT           /:id        controllers.CustomerController.update(id: Long)
+DELETE        /:id        controllers.CustomerController.delete(id: Long)

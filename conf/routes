@@ -1,2 +1,3 @@
-GET        /        @controllers.Default.todo()
+GET        /                    @controllers.Default.todo()
 
+->         /v1/customers        customers.Routes
