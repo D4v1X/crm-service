@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <jdbc>
+        <driver>org.postgresql.Driver</driver>
+        <url>jdbc:postgresql://localhost/crm_db</url>
+        <user>crm_user</user>
+        <password>crm_pass</password>
+    </jdbc>
+
+    <generator>
+        <name>org.jooq.util.JavaGenerator</name>
+
+        <database>
+            <customTypes>
+                <customType>
+                    <name>DateToLocalDateConverter</name>
+                    <type>java.time.LocalDate</type>
+                    <converter>jooq.converters.DateToLocalDateConverter</converter>
+                </customType>
+
+                <customType>
+                    <name>TimestampToLocalDateTimeConverter</name>
+                    <type>java.time.LocalDateTime</type>
+                    <converter>jooq.converters.TimestampToLocalDateTimeConverter</converter>
+                </customType>
+            </customTypes>
+
+            <forcedTypes>
+                <forcedType>
+                    <name>DateToLocalDateConverter</name>
+                    <types>Date</types>
+                </forcedType>
+
+                <forcedType>
+                    <name>TimestampToLocalDateTimeConverter</name>
+                    <types>Timestamp.*</types>
+                </forcedType>
+            </forcedTypes>
+
+            <name>org.jooq.util.postgres.PostgresDatabase</name>
+            <inputSchema>crm_schema</inputSchema>
+            <includes>.*</includes>
+        </database>
+
+        <generate>
+            <!--<daos>true</daos>-->
+            <pojos>true</pojos>
+        </generate>
+
+        <target>
+            <packageName>jooq.objects</packageName>
+            <directory>app</directory>
+        </target>
+    </generator>
+
+</configuration>

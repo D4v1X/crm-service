@@ -19,5 +19,9 @@ Logs:
 ```/logs/application.log```
 
 Test:
-``` curl -X GET \ http://localhost:9000/ \ ```
-      
+
+```curl -X GET \ http://localhost:9000/ \ ```
+     
+Generate JOOQ objects:
+
+```sbt genJooqModel ``` 

@@ -22,6 +22,21 @@ libraryDependencies ++= Seq(
 )
 
 
+val genJooqTask = Def.task {
+  val src = sourceManaged.value
+  val cp = (fullClasspath in Compile).value
+  val r = (runner in Compile).value
+  val s = streams.value
+
+  toError(r.run("org.jooq.util.GenerationTool", cp.files, Array("jooq.xml"), s.log))
+  ((src / "main/generated") ** "*.java").get
+}
+unmanagedSourceDirectories in Compile += sourceManaged.value / "main/generated"
+
+val genJooqModel = taskKey[Seq[File]]("Generate JOOQ classes")
+genJooqModel := genJooqTask.value
+
+
 // **************************************************************
 // Avoid adding the Javadocs when generating a distributable file
 // **************************************************************
