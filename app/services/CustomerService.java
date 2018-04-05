@@ -41,4 +41,13 @@ public interface CustomerService {
      */
     CompletionStage<Optional<CustomerResource>> findById(DSLContext create, Integer customerId);
 
+    /**
+     * Updates the {@link Customer} with the information that contains in {@link CustomerResource}
+     *
+     * @param create           the {@link DSLContext} with which to access and query the database using
+     *                         the typesafe SQL Java DSL provided by JOOQ
+     * @param customerResource contains the information that will be used to update the customer.
+     * @return an empty future that, when successfully completed, means that the customer was successfully updated
+     */
+    CompletionStage<Void> update(DSLContext create, CustomerResource customerResource);
 }

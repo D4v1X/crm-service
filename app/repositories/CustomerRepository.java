@@ -36,4 +36,13 @@ public interface CustomerRepository {
      * @return the customer if it exists or an empty {@link Optional} otherwise
      */
     Optional<CustomerResource> findById(DSLContext create, Integer customerId);
+
+    /**
+     * Updates the {@link Customer} with the information that contains in {@link CustomerResource}
+     *
+     * @param create           the {@link DSLContext} with which to access and query the database using
+     *                         the typesafe SQL Java DSL provided by JOOQ
+     * @param customerResource contains the information that will be used to update the customer.
+     */
+    void update(DSLContext create, CustomerResource customerResource);
 }

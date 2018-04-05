@@ -45,6 +45,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 .where(CUSTOMER.ID.eq(customerId))
                 .fetchOptionalInto(CustomerResource.class);
     }
+
+    @Override
+    public void update(DSLContext create, CustomerResource customerResource) {
+        create.update(CUSTOMER)
+                .set(CUSTOMER.NAME, customerResource.getName())
+                .set(CUSTOMER.SURNAME, customerResource.getSurname())
+                .set(CUSTOMER.PHOTO, customerResource.getPhoto())
+                .where(CUSTOMER.ID.eq(customerResource.getId()))
+                .execute();
+    }
+
     }
 
 }

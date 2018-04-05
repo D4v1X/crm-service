@@ -60,8 +60,17 @@ public class CustomerController extends BaseController {
                 });
     }
 
-    public CompletionStage<Result> update(Long id) {
-        return CompletableFuture.completedFuture(Results.TODO);
+    /**
+     * Update the {@link Customer} with the given {@link CustomerResource} information.
+     *
+     * @return HTTP 204 status code if the operation succedeed, or
+     *         HTTP 400 in case it's not found or
+     *         HTTP 500 in case of error
+     */
+    public CompletionStage<Result> update() {
+        CustomerResource customerResource = Json.fromJson(request().body().asJson(), CustomerResource.class);
+        return withTransaction(ctx -> customerService.update(ctx, customerResource))
+                .thenApply(nothing -> noContent());
     }
 
     public CompletionStage<Result> delete(Long id) {
