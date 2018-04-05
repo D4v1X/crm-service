@@ -26,8 +26,14 @@ public interface CustomerRepository {
      * @return the {@link List} of {@link CustomerResource}s
      */
     List<CustomerResource> findAll(DSLContext create);
+
+    /**
+     * Find the {@link Customer} by a given ID passed as argument
      *
-     * @return a future that, if completed successfully, means that the customerResource was successfully stored
+     * @param create     the {@link DSLContext} with which to access and query the database using
+     *                   the typesafe SQL Java DSL provided by JOOQ
+     * @param customerId the customer identifier
+     * @return the customer if it exists or an empty {@link Optional} otherwise
      */
-    CompletionStage<Void> create(DSLContext create, CustomerResource customerResource);
+    Optional<CustomerResource> findById(DSLContext create, Integer customerId);
 }

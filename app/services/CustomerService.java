@@ -29,4 +29,16 @@ public interface CustomerService {
      * @return a Future that, when redeemed, will contain the {@link List} of {@link CustomerResource}s
      */
     CompletionStage<List<CustomerResource>> findAll(DSLContext create);
+
+
+    /**
+     * Find the {@link Customer} by a given ID passed as argument
+     *
+     * @param create     the {@link DSLContext} with which to access and query the database using
+     *                   the typesafe SQL Java DSL provided by JOOQ
+     * @param customerId the customer identifier
+     * @return a Future that, when redeemed, will contain the customer if it exists or an empty {@link Optional} otherwise
+     */
+    CompletionStage<Optional<CustomerResource>> findById(DSLContext create, Integer customerId);
+
 }

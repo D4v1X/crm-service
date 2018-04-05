@@ -44,8 +44,20 @@ public class CustomerController extends BaseController {
                 .thenApply(customers -> ok(Json.toJson(customers)));
     }
 
-    public CompletionStage<Result> get(Long id) {
-        return CompletableFuture.completedFuture(Results.TODO);
+    /**
+     * Finds the available {@link Customer} with the given {@link Customer#id}
+     *
+     * @return HTTP 200 response with a Json object representing the customer if it's found or
+     *         HTTP 400 in case it's not found
+     */
+    public CompletionStage<Result> findById(Integer id) {
+        return withTransaction(ctx -> customerService.findById(ctx, id))
+                .thenApply(customer -> {
+                    if (customer.isPresent())
+                        return ok(Json.toJson(customer));
+                    else
+                        return notFound();
+                });
     }
 
     public CompletionStage<Result> update(Long id) {

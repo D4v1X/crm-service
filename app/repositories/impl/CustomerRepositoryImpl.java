@@ -33,6 +33,18 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 .from(CUSTOMER)
                 .fetchInto(CustomerResource.class);
     }
+
+    @Override
+    public Optional<CustomerResource> findById(DSLContext create, Integer customerId) {
+        return create
+                .select(CUSTOMER.ID
+                        , CUSTOMER.NAME
+                        , CUSTOMER.SURNAME
+                        , CUSTOMER.PHOTO)
+                .from(CUSTOMER)
+                .where(CUSTOMER.ID.eq(customerId))
+                .fetchOptionalInto(CustomerResource.class);
+    }
     }
 
 }
