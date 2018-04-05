@@ -40,6 +40,9 @@ public class CustomerServiceImpl implements CustomerService {
         return CompletableFuture.runAsync(() -> customerRepository.update(create, customerResource));
     }
 
+    @Override
+    public CompletionStage<Void> delete(DSLContext create, Integer customerId) {
+        return CompletableFuture.runAsync(() -> customerRepository.delete(create, customerId));
     }
 
 }

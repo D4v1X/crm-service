@@ -56,6 +56,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 .execute();
     }
 
+    @Override
+    public void delete(DSLContext create, Integer customerId) {
+        create.delete(CUSTOMER)
+                .where(CUSTOMER.ID.eq(customerId));
     }
 
 }

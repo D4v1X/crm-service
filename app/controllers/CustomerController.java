@@ -73,8 +73,16 @@ public class CustomerController extends BaseController {
                 .thenApply(nothing -> noContent());
     }
 
-    public CompletionStage<Result> delete(Long id) {
-        return CompletableFuture.completedFuture(Results.TODO);
+    /**
+     * delete the {@link Customer} with the given {@link Customer#id}
+     *
+     * @return HTTP 204 status code if the operation succedeed, or
+     *         HTTP 400 in case it's not found or
+     *         HTTP 500 in case of error
+     */
+    public CompletionStage<Result> delete(Integer id) {
+        return withTransaction(ctx -> customerService.delete(ctx, id))
+                .thenApply(nothing -> noContent());
     }
 
 }

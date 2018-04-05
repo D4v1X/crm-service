@@ -45,4 +45,14 @@ public interface CustomerRepository {
      * @param customerResource contains the information that will be used to update the customer.
      */
     void update(DSLContext create, CustomerResource customerResource);
+
+    /**
+     * Delete the specified customer.
+     *
+     * @param create     the {@link DSLContext} with which to access and query the database using
+     *                   the typesafe SQL Java DSL provided by JOOQ
+     * @param customerId the customer identifier
+     */
+    void delete(DSLContext create, Integer customerId);
+
 }

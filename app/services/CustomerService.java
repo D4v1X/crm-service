@@ -50,4 +50,14 @@ public interface CustomerService {
      * @return an empty future that, when successfully completed, means that the customer was successfully updated
      */
     CompletionStage<Void> update(DSLContext create, CustomerResource customerResource);
+
+    /**
+     * Delete the specified customer.
+     *
+     * @param create     the {@link DSLContext} with which to access and query the database using
+     *                   the typesafe SQL Java DSL provided by JOOQ
+     * @param customerId the customer identifier
+     * @return an empty future that, when successfully completed, means that the customer was successfully deleted
+     */
+    CompletionStage<Void> delete(DSLContext create, Integer customerId);
 }
