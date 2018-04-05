@@ -22,6 +22,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                         , customerResource.getPhoto())
                 .execute();
     }
+
+    @Override
+    public List<CustomerResource> findAll(DSLContext create) {
+        return create
+                .select(CUSTOMER.ID
+                        , CUSTOMER.NAME
+                        , CUSTOMER.SURNAME
+                        , CUSTOMER.PHOTO)
+                .from(CUSTOMER)
+                .fetchInto(CustomerResource.class);
+    }
     }
 
 }

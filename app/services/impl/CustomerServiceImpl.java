@@ -24,6 +24,12 @@ public class CustomerServiceImpl implements CustomerService {
     public CompletionStage<Void> create(DSLContext create, CustomerResource customerResource) {
         return CompletableFuture.runAsync(() -> customerRepository.create(create, customerResource));
     }
+
+    @Override
+    public CompletionStage<List<CustomerResource>> findAll(DSLContext create) {
+        return CompletableFuture.supplyAsync(() -> customerRepository.findAll(create));
+    }
+
     }
 
 }

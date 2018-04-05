@@ -34,8 +34,14 @@ public class CustomerController extends BaseController {
                 .thenApply(nothing -> created());
     }
 
-    public CompletionStage<Result> list() {
-        return CompletableFuture.completedFuture(Results.TODO);
+    /**
+     * Retrieves all the available {@link Customer} objects from the database
+     *
+     * @return Json object representing the available findAll of customers
+     */
+    public CompletionStage<Result> findAll() {
+        return withTransaction(ctx -> customerService.findAll(ctx))
+                .thenApply(customers -> ok(Json.toJson(customers)));
     }
 
     public CompletionStage<Result> get(Long id) {

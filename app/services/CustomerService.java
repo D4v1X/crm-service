@@ -20,4 +20,13 @@ public interface CustomerService {
      */
     CompletionStage<Void> create(DSLContext create, CustomerResource customerResource);
 
+    /**
+     * Retrieves all the {@link CustomerResource} objects making use of the {@link DSLContext} provided
+     * to access the database
+     *
+     * @param create the {@link DSLContext} with which to access and query the database using
+     *               the typesafe SQL Java DSL provided by JOOQ
+     * @return a Future that, when redeemed, will contain the {@link List} of {@link CustomerResource}s
+     */
+    CompletionStage<List<CustomerResource>> findAll(DSLContext create);
 }
