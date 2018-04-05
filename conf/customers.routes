@@ -1,6 +1,6 @@
 
-POST          /           controllers.CustomerController.create()
-GET           /           controllers.CustomerController.list()
-GET           /:id        controllers.CustomerController.get(id: Long)
-PUT           /:id        controllers.CustomerController.update(id: Long)
-DELETE        /:id        controllers.CustomerController.delete(id: Long)
+POST          /           @controllers.CustomerController.create()
+GET           /           @controllers.CustomerController.findAll()
+GET           /:id        @controllers.CustomerController.findById(id: Int)
+PUT           /           @controllers.CustomerController.update()
+DELETE        /:id        @controllers.CustomerController.delete(id: Int)
