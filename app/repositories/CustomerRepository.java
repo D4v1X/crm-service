@@ -4,7 +4,8 @@ import jooq.objects.tables.pojos.Customer;
 import models.CustomerResource;
 import org.jooq.DSLContext;
 
-import java.util.concurrent.CompletionStage;
+import java.util.List;
+import java.util.Optional;
 
 public interface CustomerRepository {
 
@@ -14,6 +15,9 @@ public interface CustomerRepository {
      * @param create           the {@link DSLContext} with which to access and query the database using
      *                         the typesafe SQL Java DSL provided by JOOQ
      * @param customerResource the new customerResource to store.
+     */
+    void create(DSLContext create, CustomerResource customerResource);
+
      *
      * @return a future that, if completed successfully, means that the customerResource was successfully stored
      */

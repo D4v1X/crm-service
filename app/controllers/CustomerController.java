@@ -1,13 +1,12 @@
 package controllers;
 
 import com.google.inject.Inject;
+import jooq.objects.tables.pojos.Customer;
 import models.CustomerResource;
 import play.libs.Json;
 import play.mvc.Result;
-import play.mvc.Results;
 import services.CustomerService;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class CustomerController extends BaseController {
@@ -25,14 +24,14 @@ public class CustomerController extends BaseController {
     /**
      * Stores a new product in the database
      *
-     * @return HTTP 200 status code if the operation succedeed,
+     * @return HTTP 201 status code if the operation succedeed,
      *         HTTP 400 in case there's a problem with the input or
      *         HTTP 500 in case of error
      */
     public CompletionStage<Result> create() {
         CustomerResource customerResource = Json.fromJson(request().body().asJson(), CustomerResource.class);
         return withTransaction(ctx -> customerService.create(ctx, customerResource))
-                .thenApply(aVoid -> ok());
+                .thenApply(nothing -> created());
     }
 
     public CompletionStage<Result> list() {
