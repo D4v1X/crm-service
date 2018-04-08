@@ -32,6 +32,7 @@ public class CustomerController extends BaseController {
      *         HTTP 400 in case there's a problem with the input or
      *         HTTP 500 in case of error
      */
+    @Secured
     public CompletionStage<Result> create() {
         NewCustomerRequest newCustomerRequest = Json.fromJson(request().body().asJson(), NewCustomerRequest.class);
         User userWhoExecuted = (User) ctx().args.get(Constants.USER_WHO_EXECUTED_THE_ACTION);
@@ -44,6 +45,7 @@ public class CustomerController extends BaseController {
      *
      * @return Json object representing the available findAll of customers
      */
+    @Secured
     public CompletionStage<Result> findAll() {
         return withTransaction(ctx -> customerService.findAll(ctx))
                 .thenApply(customers -> ok(Json.toJson(customers)));
@@ -55,6 +57,7 @@ public class CustomerController extends BaseController {
      * @return HTTP 200 response with a Json object representing the customer if it's found or
      *         HTTP 400 in case it's not found
      */
+    @Secured
     public CompletionStage<Result> findById(Integer id) {
         return withTransaction(ctx -> customerService.findCustomerWithDetailsById(ctx, id))
                 .thenApply(customer -> {
@@ -72,6 +75,7 @@ public class CustomerController extends BaseController {
      *         HTTP 400 in case it's not found or
      *         HTTP 500 in case of error
      */
+    @Secured
     public CompletionStage<Result> update(Integer customerId) {
         UpdateCustomerRequest updateCustomerRequest = Json.fromJson(request().body().asJson(), UpdateCustomerRequest.class);
         User userWhoExecuted = (User) ctx().args.get(Constants.USER_WHO_EXECUTED_THE_ACTION);
@@ -86,6 +90,7 @@ public class CustomerController extends BaseController {
      *         HTTP 400 in case it's not found or
      *         HTTP 500 in case of error
      */
+    @Secured
     public CompletionStage<Result> delete(Integer id) {
         return withTransaction(ctx -> customerService.delete(ctx, id))
                 .thenApply(nothing -> noContent());
