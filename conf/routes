@@ -1,3 +1,5 @@
-GET        /                    @controllers.Default.todo()
+GET        /                              @controllers.Default.todo()
 
-->         /v1/customers        customers.Routes
+->         /api/v1/authentications        authentications.Routes
+->         /api/v1/customers              customers.Routes
+->         /api/v1/users                  users.Routes
