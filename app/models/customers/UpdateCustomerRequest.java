@@ -1,27 +1,17 @@
-package models;
+package models.customers;
 
-public class CustomerResource {
-    private Integer id;
+public class UpdateCustomerRequest {
+
     private String name;
     private String surname;
     private String photo;
 
-    public CustomerResource() {
-    }
+    public UpdateCustomerRequest() { }
 
-    public CustomerResource(Integer id, String name, String surname, String photo) {
-        this.id = id;
+    public UpdateCustomerRequest(String name, String surname, String photo) {
         this.name = name;
         this.surname = surname;
         this.photo = photo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

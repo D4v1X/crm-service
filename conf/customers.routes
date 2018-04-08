@@ -1,6 +1,8 @@
-
+#
+# Customer endpoints
+#
 POST          /           @controllers.CustomerController.create()
 GET           /           @controllers.CustomerController.findAll()
 GET           /:id        @controllers.CustomerController.findById(id: Int)
-PUT           /           @controllers.CustomerController.update()
+PUT           /:id        @controllers.CustomerController.update(id: Int)
 DELETE        /:id        @controllers.CustomerController.delete(id: Int)
