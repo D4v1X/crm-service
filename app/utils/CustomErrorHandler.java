@@ -1,5 +1,8 @@
 package utils;
 
+import exceptions.AuthenticationException;
+import exceptions.AuthorizationException;
+import exceptions.DatabaseException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import play.Logger;
 import play.http.HttpErrorHandler;
@@ -28,7 +31,7 @@ public class CustomErrorHandler implements HttpErrorHandler {
      */
     public CompletionStage<Result> onClientError(RequestHeader request, int statusCode, String message) {
         return CompletableFuture.completedFuture(
-                Results.status(statusCode, message)
+                Results.status(statusCode, "A client error occurred: " + message)
         );
     }
 
@@ -42,15 +45,31 @@ public class CustomErrorHandler implements HttpErrorHandler {
      */
     public CompletionStage<Result> onServerError(RequestHeader request, Throwable exception) {
         Throwable rootCause = ExceptionUtils.getRootCause(exception);
+        Logger.error("Error executing HTTP request:", rootCause);
+
         if (rootCause instanceof IllegalArgumentException) {
+            return CompletableFuture.completedFuture(Results.badRequest(rootCause.getMessage()));
+
+        } else if (rootCause instanceof AuthenticationException) {
             return CompletableFuture.completedFuture(
-                    Results.badRequest(rootCause.getMessage())
+                    Results.unauthorized(rootCause.getMessage())
             );
+
+        } else if (rootCause instanceof AuthorizationException) {
+            return CompletableFuture.completedFuture(
+                    Results.unauthorized(rootCause.getMessage())
+            );
+
+        } else if (rootCause instanceof DatabaseException) {
+            return CompletableFuture.completedFuture(
+                    Results.unauthorized(rootCause.getMessage())
+            );
+
         } else {
-            Logger.error("Error executing HTTP request", exception);
             return CompletableFuture.completedFuture(
-                    Results.internalServerError("Error executing HTTP request")
+                    Results.internalServerError("Unexpected error processing the request!")
             );
+
         }
     }
 
