@@ -73,7 +73,7 @@ The libraries I'm using are more or less well known except for "Jooq". Jooq is a
 
 - [x] Authentication  
 - [x] Authorisation 
-- [x] SQL injection: 
+- [x] SQL injection, Info: https://www.jooq.org/doc/3.9/manual/sql-building/bind-values/sql-injection/
 - [ ] XSS prevention, Info: https://stackoverflow.com/questions/27561226/how-to-prevent-xss-in-play-framework-2
 - [ ] OAuth2, Info: http://www.securesocial.ws/guide/getting-started.html 
 
