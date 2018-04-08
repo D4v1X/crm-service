@@ -23,6 +23,12 @@
                     <type>java.time.LocalDateTime</type>
                     <converter>jooq.converters.TimestampToLocalDateTimeConverter</converter>
                 </customType>
+
+                <customType>
+                    <name>RoleConverter</name>
+                    <type>enums.Role</type>
+                    <converter>jooq.converters.RoleConverter</converter>
+                </customType>
             </customTypes>
 
             <forcedTypes>
@@ -34,6 +40,11 @@
                 <forcedType>
                     <name>TimestampToLocalDateTimeConverter</name>
                     <types>Timestamp.*</types>
+                </forcedType>
+
+                <forcedType>
+                    <name>RoleConverter</name>
+                    <expression>.*role.*</expression>
                 </forcedType>
             </forcedTypes>
 
