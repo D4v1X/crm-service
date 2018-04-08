@@ -1,0 +1,5 @@
+#
+# Authentication endpoints
+#
+POST          /        @controllers.AuthenticationController.login()
+DELETE        /        @controllers.AuthenticationController.logout()
