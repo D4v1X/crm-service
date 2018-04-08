@@ -4,8 +4,11 @@
 package jooq.objects.tables.pojos;
 
 
+import enums.Role;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.annotation.Generated;
 
@@ -23,11 +26,18 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1264281690;
+    private static final long serialVersionUID = -1899899053;
 
     private Integer       id;
-    private String        loginName;
-    private String        role;
+    private UUID          uuid;
+    private String        name;
+    private String        email;
+    private String        password;
+    private String        secret;
+    private Role          role;
+    private String        token;
+    private LocalDateTime tokenExpiration;
+    private Boolean       active;
     private LocalDateTime created;
     private LocalDateTime modified;
 
@@ -35,22 +45,43 @@ public class User implements Serializable {
 
     public User(User value) {
         this.id = value.id;
-        this.loginName = value.loginName;
+        this.uuid = value.uuid;
+        this.name = value.name;
+        this.email = value.email;
+        this.password = value.password;
+        this.secret = value.secret;
         this.role = value.role;
+        this.token = value.token;
+        this.tokenExpiration = value.tokenExpiration;
+        this.active = value.active;
         this.created = value.created;
         this.modified = value.modified;
     }
 
     public User(
         Integer       id,
-        String        loginName,
-        String        role,
+        UUID          uuid,
+        String        name,
+        String        email,
+        String        password,
+        String        secret,
+        Role          role,
+        String        token,
+        LocalDateTime tokenExpiration,
+        Boolean       active,
         LocalDateTime created,
         LocalDateTime modified
     ) {
         this.id = id;
-        this.loginName = loginName;
+        this.uuid = uuid;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.secret = secret;
         this.role = role;
+        this.token = token;
+        this.tokenExpiration = tokenExpiration;
+        this.active = active;
         this.created = created;
         this.modified = modified;
     }
@@ -63,20 +94,76 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return this.loginName;
+    public UUID getUuid() {
+        return this.uuid;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
-    public String getRole() {
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSecret() {
+        return this.secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public Role getRole() {
         return this.role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getTokenExpiration() {
+        return this.tokenExpiration;
+    }
+
+    public void setTokenExpiration(LocalDateTime tokenExpiration) {
+        this.tokenExpiration = tokenExpiration;
+    }
+
+    public Boolean getActive() {
+        return this.active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public LocalDateTime getCreated() {
@@ -100,8 +187,15 @@ public class User implements Serializable {
         StringBuilder sb = new StringBuilder("User (");
 
         sb.append(id);
-        sb.append(", ").append(loginName);
+        sb.append(", ").append(uuid);
+        sb.append(", ").append(name);
+        sb.append(", ").append(email);
+        sb.append(", ").append(password);
+        sb.append(", ").append(secret);
         sb.append(", ").append(role);
+        sb.append(", ").append(token);
+        sb.append(", ").append(tokenExpiration);
+        sb.append(", ").append(active);
         sb.append(", ").append(created);
         sb.append(", ").append(modified);
 

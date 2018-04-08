@@ -44,7 +44,8 @@ public class Keys {
 
     public static final UniqueKey<CustomerRecord> CUSTOMER_PKEY = UniqueKeys0.CUSTOMER_PKEY;
     public static final UniqueKey<UserRecord> USER_PKEY = UniqueKeys0.USER_PKEY;
-    public static final UniqueKey<UserRecord> USER_LOGIN_NAME_KEY = UniqueKeys0.USER_LOGIN_NAME_KEY;
+    public static final UniqueKey<UserRecord> USER_UUID_KEY = UniqueKeys0.USER_UUID_KEY;
+    public static final UniqueKey<UserRecord> USER_EMAIL_KEY = UniqueKeys0.USER_EMAIL_KEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -65,7 +66,8 @@ public class Keys {
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<CustomerRecord> CUSTOMER_PKEY = createUniqueKey(Customer.CUSTOMER, "customer_pkey", Customer.CUSTOMER.ID);
         public static final UniqueKey<UserRecord> USER_PKEY = createUniqueKey(User.USER, "user_pkey", User.USER.ID);
-        public static final UniqueKey<UserRecord> USER_LOGIN_NAME_KEY = createUniqueKey(User.USER, "user_login_name_key", User.USER.LOGIN_NAME);
+        public static final UniqueKey<UserRecord> USER_UUID_KEY = createUniqueKey(User.USER, "user_uuid_key", User.USER.UUID);
+        public static final UniqueKey<UserRecord> USER_EMAIL_KEY = createUniqueKey(User.USER, "user_email_key", User.USER.EMAIL);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {

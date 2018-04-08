@@ -4,12 +4,16 @@
 package jooq.objects.tables;
 
 
+import enums.Role;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Generated;
 
+import jooq.converters.RoleConverter;
 import jooq.converters.TimestampToLocalDateTimeConverter;
 import jooq.objects.CrmSchema;
 import jooq.objects.Keys;
@@ -37,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 879956871;
+    private static final long serialVersionUID = 422300994;
 
     /**
      * The reference instance of <code>crm_schema.user</code>
@@ -58,14 +62,49 @@ public class User extends TableImpl<UserRecord> {
     public final TableField<UserRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('crm_schema.user_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>crm_schema.user.login_name</code>.
+     * The column <code>crm_schema.user.uuid</code>.
      */
-    public final TableField<UserRecord, String> LOGIN_NAME = createField("login_name", org.jooq.impl.SQLDataType.VARCHAR.length(50).nullable(false), this, "");
+    public final TableField<UserRecord, UUID> UUID = createField("uuid", org.jooq.impl.SQLDataType.UUID.nullable(false), this, "");
+
+    /**
+     * The column <code>crm_schema.user.name</code>.
+     */
+    public final TableField<UserRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>crm_schema.user.email</code>.
+     */
+    public final TableField<UserRecord, String> EMAIL = createField("email", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+
+    /**
+     * The column <code>crm_schema.user.password</code>.
+     */
+    public final TableField<UserRecord, String> PASSWORD = createField("password", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+
+    /**
+     * The column <code>crm_schema.user.secret</code>.
+     */
+    public final TableField<UserRecord, String> SECRET = createField("secret", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>crm_schema.user.role</code>.
      */
-    public final TableField<UserRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR.length(5).nullable(false), this, "");
+    public final TableField<UserRecord, Role> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR.length(5).nullable(false).defaultValue(org.jooq.impl.DSL.field("'USER'::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "", new RoleConverter());
+
+    /**
+     * The column <code>crm_schema.user.token</code>.
+     */
+    public final TableField<UserRecord, String> TOKEN = createField("token", org.jooq.impl.SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>crm_schema.user.token_expiration</code>.
+     */
+    public final TableField<UserRecord, LocalDateTime> TOKEN_EXPIRATION = createField("token_expiration", org.jooq.impl.SQLDataType.TIMESTAMP, this, "", new TimestampToLocalDateTimeConverter());
+
+    /**
+     * The column <code>crm_schema.user.active</code>.
+     */
+    public final TableField<UserRecord, Boolean> ACTIVE = createField("active", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false).defaultValue(org.jooq.impl.DSL.field("true", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>crm_schema.user.created</code>.
@@ -128,7 +167,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.USER_PKEY, Keys.USER_LOGIN_NAME_KEY);
+        return Arrays.<UniqueKey<UserRecord>>asList(Keys.USER_PKEY, Keys.USER_UUID_KEY, Keys.USER_EMAIL_KEY);
     }
 
     /**
