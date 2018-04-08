@@ -25,6 +25,7 @@
   </appender>
 
   <logger name="play" level="INFO" />
+  <logger name="play.mvc.Action" level="DEBUG" />
   <logger name="org.jooq" level="DEBUG"/>
   <logger name="application" level="DEBUG" />
 
