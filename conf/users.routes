@@ -1,0 +1,8 @@
+#
+# User endpoints
+#
+POST          /                             @controllers.UserController.create()
+GET           /                             @controllers.UserController.findAll()
+PUT           /:id                          @controllers.UserController.update(id: Int)
+DELETE        /:id                          @controllers.UserController.delete(id: Int)
+PATCH         /:id/changeAdminStatus        @controllers.UserController.changeAdminStatus(id: Int)
