@@ -13,6 +13,7 @@ libraryDependencies ++= Seq(
   javaWs,
   guice,
   javaJdbc,
+  evolutions,
 
   "org.postgresql"  % "postgresql"    % postgresVersion,
 
