@@ -11,6 +11,8 @@ import play.Logger;
 import repositories.UserRepository;
 import services.UserService;
 import utils.EncryptionUtil;
+import utils.Validation;
+import utils.Validator;
 
 import java.util.List;
 import java.util.Optional;
@@ -93,6 +95,7 @@ public class UserServiceImpl implements UserService {
         newUser.setName(userResource.getName());
         newUser.setEmail(userResource.getEmail());
 
+        // Use case: User creation without defined role. (Default role: User)
         newUser.setRole(Optional.ofNullable(userResource.getRole()).orElse(Role.USER));
 
         String secret = EncryptionUtil.generateSecret();
