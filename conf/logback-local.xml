@@ -25,12 +25,9 @@
   </appender>
 
   <logger name="play" level="INFO" />
-  <logger name="play.mvc.Action" level="DEBUG" />
-  <logger name="org.jooq" level="DEBUG"/>
   <logger name="application" level="DEBUG" />
-
-  <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
-  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+  <logger name="org.jooq" level="DEBUG"/>
+  <logger name="play.libs.mailer" level="DEBUG"/>
 
   <root level="WARN">
     <appender-ref ref="ASYNCFILE" />
