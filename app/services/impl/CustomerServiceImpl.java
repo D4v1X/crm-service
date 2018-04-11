@@ -64,8 +64,9 @@ public class CustomerServiceImpl implements CustomerService {
 
         newCustomer.setName(newCustomerRequest.getName());
         newCustomer.setSurname(newCustomerRequest.getSurname());
-        newCustomer.setPhoto(newCustomerRequest.getPhoto());
+        Optional.ofNullable(newCustomerRequest.getPhoto()).ifPresent(newCustomer::setPhoto);
         newCustomer.setModifiedByUser(userWhoExecutedId);
+
         return newCustomer;
     }
 
