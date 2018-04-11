@@ -80,8 +80,7 @@ The libraries I'm using are more or less well known except for "Jooq". Jooq is a
 ### Continuous Deployment 
 ---------------
 
-- [ ] AWS, Info: https://www.playframework.com/documentation/2.6.x/Deploying-Boxfuse
-- [ ] Heroku, Info: https://www.playframework.com/documentation/2.6.x/ProductionHeroku
+- [x] Heroku, app url: https://tranquil-taiga-57523.herokuapp.com/
 
 ### Development Environments.
 ---------------

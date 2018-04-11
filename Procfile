@@ -1,0 +1,1 @@
+web: target/universal/stage/bin/crm-service -Dhttp.port=${PORT} -Dconfig.resource=${PLAY_CONFIG} -Dlogger.resource=${PLAY_LOGGER}
