@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/crm-service -Dhttp.port=${PORT} -Dconfig.resource=${PLAY_CONFIG} -Dlogger.resource=${PLAY_LOGGER}
+web: target/universal/stage/bin/crm-service -Dhttp.port=${PORT} -Dconfig.resource=${PLAY_CONFIG} -Dlogger.resource=${PLAY_LOGGER} -Dplay.evolutions.db.default.autoApply=true
