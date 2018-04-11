@@ -1,6 +1,3 @@
-In Progress [7 days (29h of work.)]
----------------
-
 ### Description
 ---------------
 The REST API contained in this repo is a Play Framework Java application.
@@ -16,16 +13,13 @@ Play uses Akka-Http as an embedded server so there's no need to setup an externa
 ### Postgres Database
 ---------------
 
-```jdbc:postgresql://localhost:5432/crm_db```
-
-the user and password ```crm_user/crm_pass```
+```jdbc:postgresql://localhost:5432/crm_db``` the user and password ```crm_user/crm_pass```
 
 In order to setup this database, follow these steps:
-
 1. Open a console and go to the project base directory
 2. Execute as a Postgres administrator user (e.g. postgres):
 
-```psql -U postgres -f conf/database/crm_db/db_init.sql```
+```psql -U postgres -f conf/database/db_init.sql```
 
 ### Building and Running
 ---------------------------------
@@ -52,7 +46,6 @@ The libraries I'm using are more or less well known except for "Jooq". Jooq is a
 - **app/controllers:** contains the different controllers serving the responses to the requests
 - **app/enums:**
 - **app/exceptions:** contains a few exceptions used throughout the application
-- **app/filters:** 
 - **app/jooq:** contains the Jooq objects created from the initial SQL script and that map objects in the database
 - **app/model:** contains the application business model
 - **app/repositories:** contains the repositories used to access the database
@@ -74,7 +67,6 @@ The libraries I'm using are more or less well known except for "Jooq". Jooq is a
 - [x] Authentication  
 - [x] Authorisation 
 - [x] SQL injection, Info: https://www.jooq.org/doc/3.9/manual/sql-building/bind-values/sql-injection/
-- [ ] XSS prevention, Info: https://stackoverflow.com/questions/27561226/how-to-prevent-xss-in-play-framework-2
 - [ ] OAuth2, Info: http://www.securesocial.ws/guide/getting-started.html 
 - [x] [Play 2.6 Security Analysis](https://nvisium.com/resources/blog/2017/10/04/play-2-6-security-analysis.html)
 
