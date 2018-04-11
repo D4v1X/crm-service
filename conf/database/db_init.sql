@@ -15,7 +15,3 @@ WITH OWNER = crm_user
 ENCODING = 'UTF8'
 TABLESPACE = pg_default
 CONNECTION LIMIT = -1;
-
-\connect crm_db
-
-SET ROLE crm_user;
