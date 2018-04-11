@@ -80,7 +80,8 @@ public class UserServiceImpl implements UserService {
         newUser.setUuid(UUID.randomUUID());
         newUser.setName(userResource.getName());
         newUser.setEmail(userResource.getEmail());
-        newUser.setRole(userResource.getRole());
+
+        newUser.setRole(Optional.ofNullable(userResource.getRole()).orElse(Role.USER));
 
         String secret = EncryptionUtil.generateSecret();
         newUser.setSecret(secret);
