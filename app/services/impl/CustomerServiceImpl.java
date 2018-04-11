@@ -10,6 +10,8 @@ import org.jooq.DSLContext;
 import play.Logger;
 import repositories.CustomerRepository;
 import services.CustomerService;
+import utils.Validation;
+import utils.Validator;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +29,19 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CompletionStage<Void> create(DSLContext create, NewCustomerRequest newCustomerRequest, Integer userWhoExecutedId) {
-        return CompletableFuture.runAsync(() -> customerRepository.create(create, generateUser(newCustomerRequest, userWhoExecutedId)));
+        return CompletableFuture.runAsync(() -> {
+
+            Validator.apply(
+                    Validation.with(
+                            Optional.ofNullable(newCustomerRequest.getName()).isPresent(),
+                            "Name is required fields"),
+                    Validation.with(
+                            Optional.ofNullable(newCustomerRequest.getSurname()).isPresent(),
+                            "Surname is required fields")
+            ).validate();
+
+            customerRepository.create(create, generateUser(newCustomerRequest, userWhoExecutedId));
+        });
     }
 
     @Override

@@ -29,7 +29,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CompletionStage<Void> create(DSLContext create, NewUserRequest newUserRequest) {
-        return CompletableFuture.runAsync(() -> userRepository.create(create, generateUser(newUserRequest)));
+        return CompletableFuture.runAsync(() -> {
+
+            Validator.apply(
+                    Validation.with(
+                            Optional.ofNullable(newUserRequest.getEmail()).isPresent(),
+                            "Email is required fields"),
+                    Validation.with(
+                            Optional.ofNullable(newUserRequest.getPassword()).isPresent(),
+                            "Password is required fields")
+            ).validate();
+
+            userRepository.create(create, generateUser(newUserRequest));
+        });
     }
 
 
