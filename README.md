@@ -1,4 +1,4 @@
-In Progress [5]
+In Progress [7 days (29h of work.)]
 ---------------
 
 ### Description
@@ -64,8 +64,8 @@ The libraries I'm using are more or less well known except for "Jooq". Jooq is a
 - **logs:** contains the application log
 - **conf:** contains the configuration files for Play Framework and Jooq. One very important file in this directory is "routes".
 - **conf/database:** contains the SQL script with which to initialize the database.
+- **conf/evolutions:** contains the SQL evolutions script to track the database schema changes.
 - **project:** contains configuration files for Play Framework
-- **sql:** contains the SQL script with which to initialize the database
 - **test:** contains the unit tests
 
 ### Security
@@ -76,6 +76,7 @@ The libraries I'm using are more or less well known except for "Jooq". Jooq is a
 - [x] SQL injection, Info: https://www.jooq.org/doc/3.9/manual/sql-building/bind-values/sql-injection/
 - [ ] XSS prevention, Info: https://stackoverflow.com/questions/27561226/how-to-prevent-xss-in-play-framework-2
 - [ ] OAuth2, Info: http://www.securesocial.ws/guide/getting-started.html 
+- [x] [Play 2.6 Security Analysis](https://nvisium.com/resources/blog/2017/10/04/play-2-6-security-analysis.html)
 
 ### Continuous Deployment 
 ---------------
