@@ -1,5 +1,8 @@
 # --- !Ups
 
+---------------------------- Schema ----------------------------
+CREATE SCHEMA crm_schema;
+
 ---------------------------- Function -------------------------
 CREATE OR REPLACE FUNCTION crm_schema.update_modified_column()
   RETURNS TRIGGER AS
@@ -66,3 +69,4 @@ EXECUTE PROCEDURE crm_schema.update_modified_column();
 DROP TABLE crm_schema.user;
 DROP TABLE crm_schema.customer;
 DROP FUNCTION crm_schema.update_modified_column();
+DROP SCHEMA crm_schema;

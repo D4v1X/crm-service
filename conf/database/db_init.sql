@@ -19,6 +19,3 @@ CONNECTION LIMIT = -1;
 \connect crm_db
 
 SET ROLE crm_user;
-
----------------------------- Schema ----------------------------
-CREATE SCHEMA crm_schema;
