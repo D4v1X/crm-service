@@ -64,19 +64,17 @@ public class CustomerServiceImpl implements CustomerService {
 
         newCustomer.setName(newCustomerRequest.getName());
         newCustomer.setSurname(newCustomerRequest.getSurname());
-        newCustomer.setPhoto(newCustomerRequest.getPhoto());
+        Optional.ofNullable(newCustomerRequest.getPhoto()).ifPresent(newCustomer::setPhoto);
         newCustomer.setModifiedByUser(userWhoExecutedId);
+
         return newCustomer;
     }
 
     private Customer mergeCustomerInformation(Customer customer, UpdateCustomerRequest updateCustomerRequest, Integer userWhoExecutedId) {
 
-        if (updateCustomerRequest.getName() != null)
-            customer.setName(updateCustomerRequest.getName());
-        if (updateCustomerRequest.getSurname() != null)
-            customer.setSurname(updateCustomerRequest.getSurname());
-        if (updateCustomerRequest.getPhoto() != null)
-            customer.setPhoto(updateCustomerRequest.getPhoto());
+        Optional.ofNullable(updateCustomerRequest.getName()).ifPresent(customer::setName);
+        Optional.ofNullable(updateCustomerRequest.getSurname()).ifPresent(customer::setSurname);
+        Optional.ofNullable(updateCustomerRequest.getPhoto()).ifPresent(customer::setPhoto);
 
         customer.setModifiedByUser(userWhoExecutedId);
         return customer;

@@ -10,7 +10,10 @@ import models.users.UserSummary;
 import play.libs.Json;
 import play.mvc.Result;
 import services.UserService;
+import utils.Validation;
+import utils.Validator;
 
+import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 
 public class UserController extends BaseController {
@@ -35,6 +38,16 @@ public class UserController extends BaseController {
     @Secured(rolesAllowed = {Role.ADMIN})
     public CompletionStage<Result> create() {
         NewUserRequest newUserRequest = Json.fromJson(request().body().asJson(), NewUserRequest.class);
+
+        Validator.apply(
+                Validation.with(
+                        Optional.ofNullable(newUserRequest.getEmail()).isPresent(),
+                        "Email is required fields"),
+                Validation.with(
+                        Optional.ofNullable(newUserRequest.getPassword()).isPresent(),
+                        "Password is required fields")
+        ).validate();
+
         return withTransaction(ctx -> userService.create(ctx, newUserRequest))
                 .thenApply(nothing -> created());
     }

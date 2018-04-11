@@ -10,7 +10,10 @@ import play.libs.Json;
 import play.mvc.Result;
 import services.CustomerService;
 import utils.Constants;
+import utils.Validation;
+import utils.Validator;
 
+import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 
 public class CustomerController extends BaseController {
@@ -35,6 +38,16 @@ public class CustomerController extends BaseController {
     @Secured
     public CompletionStage<Result> create() {
         NewCustomerRequest newCustomerRequest = Json.fromJson(request().body().asJson(), NewCustomerRequest.class);
+
+        Validator.apply(
+                Validation.with(
+                        Optional.ofNullable(newCustomerRequest.getName()).isPresent(),
+                        "Name is required fields"),
+                Validation.with(
+                        Optional.ofNullable(newCustomerRequest.getSurname()).isPresent(),
+                        "Surname is required fields")
+        ).validate();
+
         User userWhoExecuted = (User) ctx().args.get(Constants.USER_WHO_EXECUTED_THE_ACTION);
         return withTransaction(ctx -> customerService.create(ctx, newCustomerRequest, userWhoExecuted.getId()))
                 .thenApply(nothing -> created());

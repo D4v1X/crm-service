@@ -38,20 +38,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             });
 
             String encryptPassword = EncryptionUtil.encryptPassword(user.getSecret(), userLogin.getPassword());
-            if (encryptPassword.equals(user.getPassword())) {
-
-                String token = TokenUtil.generateRandomToken();
-                LocalDateTime tokenExpiration = LocalDateTime.now(Constants.DEFAULT_TIMEZONE)
-                        .plus(Constants.TOKEN_EXPIRATION_TIME, Constants.TOKEN_EXPIRATION_UNIT);
-
-                userRepository.updateUserToken(create, user.getId(), token, tokenExpiration);
-
-                return new UserSessionData(user.getUuid(), token);
-
-            } else {
+            if (!encryptPassword.equals(user.getPassword())) {
                 Logger.error("The user [" + user.getEmail() + "] tries to log-in with the wrong password.");
                 throw new AuthenticationException("The credentials provided are not correct.");
             }
+
+            String token = TokenUtil.generateRandomToken();
+            LocalDateTime tokenExpiration = LocalDateTime.now(Constants.DEFAULT_TIMEZONE).plus(
+                    Constants.TOKEN_EXPIRATION_TIME,
+                    Constants.TOKEN_EXPIRATION_UNIT
+            );
+
+            userRepository.updateUserToken(create, user.getId(), token, tokenExpiration);
+
+            return new UserSessionData(user.getUuid(), token);
 
         });
     }

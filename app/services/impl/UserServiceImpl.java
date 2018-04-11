@@ -13,6 +13,7 @@ import services.UserService;
 import utils.EncryptionUtil;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -79,7 +80,8 @@ public class UserServiceImpl implements UserService {
         newUser.setUuid(UUID.randomUUID());
         newUser.setName(userResource.getName());
         newUser.setEmail(userResource.getEmail());
-        newUser.setRole(userResource.getRole());
+
+        newUser.setRole(Optional.ofNullable(userResource.getRole()).orElse(Role.USER));
 
         String secret = EncryptionUtil.generateSecret();
         newUser.setSecret(secret);
@@ -89,12 +91,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private User mergeUserInformation(User user, UpdateUserRequest updateUserRequest) {
-        if (updateUserRequest.getName() != null)
-            user.setName(updateUserRequest.getName());
-        if (updateUserRequest.getEmail() != null)
-            user.setEmail(updateUserRequest.getEmail());
-        if (updateUserRequest.getRole() != null)
-            user.setRole(updateUserRequest.getRole());
+
+        Optional.ofNullable(updateUserRequest.getName()).ifPresent(user::setName);
+        Optional.ofNullable(updateUserRequest.getEmail()).ifPresent(user::setEmail);
+        Optional.ofNullable(updateUserRequest.getRole()).ifPresent(user::setRole);
+
         return user;
     }
 
