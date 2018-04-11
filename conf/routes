@@ -1,4 +1,8 @@
-GET        /                              @controllers.Default.todo()
+GET        /                              @controllers.Default.redirect(to = "/docs/swagger-ui/index.html?url=/assets/swagger.json")
+### NoDocs ###
+GET        /docs/swagger-ui/*file         @controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+### NoDocs ###
+GET        /assets/*file                  @controllers.Assets.versioned(path="/public", file: Asset)
 
 ->         /api/v1/authentications        authentications.Routes
 ->         /api/v1/customers              customers.Routes

@@ -7,3 +7,5 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.13")
 // basis using disablePlugins(PlayEnhancer) in your build.sbt
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.2.2")
 
+
+addSbtPlugin("com.iheart" % "sbt-play-swagger" % "0.6.2-PLAY2.6")
