@@ -34,10 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
             Validator.apply(
                     Validation.with(
                             Optional.ofNullable(newCustomerRequest.getName()).isPresent(),
-                            "Name is required fields"),
+                            "Name is required fields" ),
                     Validation.with(
                             Optional.ofNullable(newCustomerRequest.getSurname()).isPresent(),
-                            "Surname is required fields")
+                            "Surname is required fields" )
             ).validate();
 
             customerRepository.create(create, generateUser(newCustomerRequest, userWhoExecutedId));
@@ -60,8 +60,8 @@ public class CustomerServiceImpl implements CustomerService {
 
             Customer customer = customerRepository.findById(create, customerId)
                     .orElseThrow(() -> {
-                        Logger.error("the user [id: " + userWhoExecutedId + " ] tried to update a customer [id: " + customerId + " ] that does not exist.");
-                        return new IllegalArgumentException("The customer that is intended to update does not exist.");
+                        Logger.error("the user [id: " + userWhoExecutedId + " ] tried to update a customer [id: " + customerId + " ] that does not exist." );
+                        return new IllegalArgumentException("The customer that is intended to update does not exist." );
                     });
 
             customerRepository.update(create, mergeCustomerInformation(customer, updateCustomerRequest, userWhoExecutedId));
@@ -70,7 +70,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CompletionStage<Void> delete(DSLContext create, Integer customerId) {
-        return CompletableFuture.runAsync(() -> customerRepository.delete(create, customerId));
+        return CompletableFuture.runAsync(() -> {
+
+            customerRepository.findById(create, customerId)
+                    .orElseThrow(() -> {
+                        Logger.error("the user tried to delete a customer [id: " + customerId + " ] that does not exist." );
+                        return new IllegalArgumentException("The customer that is intended to delete does not exist." );
+                    });
+
+            customerRepository.delete(create, customerId);
+        });
     }
 
     private Customer generateUser(NewCustomerRequest newCustomerRequest, Integer userWhoExecutedId) {
@@ -79,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
         newCustomer.setName(newCustomerRequest.getName());
         newCustomer.setSurname(newCustomerRequest.getSurname());
         Optional.ofNullable(newCustomerRequest.getPhoto()).ifPresent(newCustomer::setPhoto);
-        newCustomer.setModifiedByUser(userWhoExecutedId);
+        newCustomer.setCreatedByUser(userWhoExecutedId);
 
         return newCustomer;
     }

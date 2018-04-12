@@ -68,7 +68,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CompletionStage<Void> delete(DSLContext create, Integer userId) {
-        return CompletableFuture.runAsync(() -> userRepository.delete(create, userId));
+        return CompletableFuture.runAsync(() -> {
+
+            userRepository.findById(create, userId)
+                    .orElseThrow(() -> {
+                        Logger.error("The user [id: " + userId + " ] that is intended to delete does not exist." );
+                        return new IllegalArgumentException("The user that is intended to delete does not exist." );
+                    });
+
+            userRepository.delete(create, userId);
+        });
     }
 
     @Override
