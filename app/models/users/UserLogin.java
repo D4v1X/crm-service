@@ -1,8 +1,14 @@
 package models.users;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel()
 public class UserLogin {
 
+    @ApiModelProperty(example = "admin@gmail.com", required = true)
     private String email;
+    @ApiModelProperty(example = "admin", required = true)
     private String password;
 
     public UserLogin() {

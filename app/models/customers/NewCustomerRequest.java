@@ -1,9 +1,16 @@
 package models.customers;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel()
 public class NewCustomerRequest {
 
+    @ApiModelProperty(example = "David", required = true)
     private String name;
+    @ApiModelProperty(example = "Brand", required = true)
     private String surname;
+    @ApiModelProperty()
     private String photo;
 
     public NewCustomerRequest() { }

@@ -34,6 +34,7 @@ libraryDependencies ++= Seq(
   "org.awaitility"  % "awaitility"    % awaitilityVersion % Test,
   "org.mockito"     % "mockito-core"  % mockitoVersion    % Test,
 
+  "io.swagger"     %% "swagger-play2" % swaggerVersion,
   "org.webjars"     % "swagger-ui"    % swaggerUIVersion
 )
 

@@ -2,8 +2,12 @@ package controllers;
 
 import annotations.Secured;
 import com.google.inject.Inject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jooq.objects.tables.pojos.Customer;
 import jooq.objects.tables.pojos.User;
+import models.customers.CustomerSummary;
+import models.customers.CustomerWithDetails;
 import models.customers.NewCustomerRequest;
 import models.customers.UpdateCustomerRequest;
 import play.libs.Json;
@@ -13,6 +17,7 @@ import utils.Constants;
 
 import java.util.concurrent.CompletionStage;
 
+@Api(value = "Customer Controller", produces = "application/json", consumes = "application/json")
 public class CustomerController extends BaseController {
 
     private CustomerService customerService;
@@ -32,6 +37,7 @@ public class CustomerController extends BaseController {
      *         HTTP 400 in case there's a problem with the input or
      *         HTTP 500 in case of error
      */
+    @ApiOperation(value = "Stores a new {@link Customer} in the database")
     @Secured
     public CompletionStage<Result> create() {
         NewCustomerRequest newCustomerRequest = Json.fromJson(request().body().asJson(), NewCustomerRequest.class);
@@ -45,6 +51,7 @@ public class CustomerController extends BaseController {
      *
      * @return Json object representing the available findAll of customers
      */
+    @ApiOperation(value = "Retrieves all the available {@link Customer} objects from the database", response = CustomerSummary.class, responseContainer = "List")
     @Secured
     public CompletionStage<Result> findAll() {
         return withTransaction(ctx -> customerService.findAll(ctx))
@@ -57,6 +64,7 @@ public class CustomerController extends BaseController {
      * @return HTTP 200 response with a Json object representing the customer if it's found or
      *         HTTP 400 in case it's not found
      */
+    @ApiOperation(value = "Finds the available {@link Customer} with the given {@link Customer#id}", response = CustomerWithDetails.class)
     @Secured
     public CompletionStage<Result> findById(Integer id) {
         return withTransaction(ctx -> customerService.findCustomerWithDetailsById(ctx, id))
@@ -70,6 +78,7 @@ public class CustomerController extends BaseController {
      *         HTTP 400 in case it's not found or
      *         HTTP 500 in case of error
      */
+    @ApiOperation(value = "Update the {@link Customer} with the given {@link UpdateCustomerRequest} information.")
     @Secured
     public CompletionStage<Result> update(Integer customerId) {
         UpdateCustomerRequest updateCustomerRequest = Json.fromJson(request().body().asJson(), UpdateCustomerRequest.class);
@@ -85,6 +94,7 @@ public class CustomerController extends BaseController {
      *         HTTP 400 in case it's not found or
      *         HTTP 500 in case of error
      */
+    @ApiOperation(value = "delete the {@link Customer} with the given {@link Customer#id}")
     @Secured
     public CompletionStage<Result> delete(Integer id) {
         return withTransaction(ctx -> customerService.delete(ctx, id))

@@ -1,10 +1,16 @@
 package models.users;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.UUID;
 
+@ApiModel()
 public class UserSessionData {
 
+    @ApiModelProperty(example = "705477ee-f632-4b5c-b038-04296ef21236")
     private UUID uuid;
+    @ApiModelProperty(example = "mqjgr0dvhu6tkpi0damnl6uc28")
     private String token;
 
     public UserSessionData() {

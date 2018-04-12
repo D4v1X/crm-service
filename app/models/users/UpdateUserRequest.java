@@ -1,11 +1,17 @@
 package models.users;
 
 import enums.Role;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel()
 public class UpdateUserRequest {
 
+    @ApiModelProperty(example = "admin")
     private String name;
+    @ApiModelProperty(example = "admin@gmail.com")
     private String email;
+    @ApiModelProperty(example = "ADMIN", allowableValues = "ADMIN, USER", allowEmptyValue = true)
     private Role role;
 
     public UpdateUserRequest() { }

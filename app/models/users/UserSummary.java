@@ -1,13 +1,19 @@
 package models.users;
 
 import enums.Role;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-
+@ApiModel()
 public class UserSummary {
 
+    @ApiModelProperty(example = "1")
     private Integer id;
+    @ApiModelProperty(example = "admin")
     private String name;
+    @ApiModelProperty(example = "admin@gmail.com")
     private String email;
+    @ApiModelProperty(example = "ADMIN", allowableValues = "ADMIN, USER")
     private Role role;
 
     public UserSummary() {

@@ -1,16 +1,28 @@
 package models.customers;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.LocalDateTime;
 
+@ApiModel()
 public class CustomerWithDetails {
 
+    @ApiModelProperty(example = "4")
     private Integer id;
+    @ApiModelProperty(example = "Xema")
     private String name;
+    @ApiModelProperty(example = "Lohan")
     private String surname;
+    @ApiModelProperty(example = "data:image/png;base64,iVBORw........kAAAAASUVORK5CYII=")
     private String photo;
+    @ApiModelProperty(example = "user")
     private String createdByUser;
+    @ApiModelProperty(example = "2018-04-08T15:14:24.761535")
     private LocalDateTime created;
+    @ApiModelProperty(example = "admin")
     private String modifiedByUser;
+    @ApiModelProperty(example = "2018-04-08T19:23:12.551626")
     private LocalDateTime modified;
 
     public CustomerWithDetails() { }

@@ -1,8 +1,14 @@
 package models.customers;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel()
 public class CustomerSummary {
 
+    @ApiModelProperty(example = "4")
     private Integer id;
+    @ApiModelProperty(example = "Xema")
     private String name;
 
     public CustomerSummary() {
