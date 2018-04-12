@@ -3,6 +3,7 @@ package utils;
 import exceptions.AuthenticationException;
 import exceptions.AuthorizationException;
 import exceptions.DatabaseException;
+import exceptions.ValidationException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import play.Logger;
 import play.http.HttpErrorHandler;
@@ -48,7 +49,14 @@ public class CustomErrorHandler implements HttpErrorHandler {
         Logger.error("Error executing HTTP request:", rootCause);
 
         if (rootCause instanceof IllegalArgumentException) {
-            return CompletableFuture.completedFuture(Results.badRequest(rootCause.getMessage()));
+            return CompletableFuture.completedFuture(
+                    Results.badRequest(rootCause.getMessage())
+            );
+
+        } else if (rootCause instanceof ValidationException) {
+            return CompletableFuture.completedFuture(
+                    Results.badRequest(rootCause.getMessage())
+            );
 
         } else if (rootCause instanceof AuthenticationException) {
             return CompletableFuture.completedFuture(
@@ -60,7 +68,8 @@ public class CustomErrorHandler implements HttpErrorHandler {
                     Results.unauthorized(rootCause.getMessage())
             );
 
-        } else if (rootCause instanceof DatabaseException) {
+        }
+        else if (rootCause instanceof DatabaseException) {
             return CompletableFuture.completedFuture(
                     Results.unauthorized(rootCause.getMessage())
             );
