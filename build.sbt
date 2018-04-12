@@ -9,6 +9,8 @@ scalaVersion := "2.12.2"
 lazy val postgresVersion = "9.4.1209"
 lazy val jooqVersion = "3.9.3"
 
+lazy val awsVersion = "1.11.313"
+
 lazy val h2Version = "1.4.194"
 lazy val assertjVersion = "3.6.2"
 lazy val awaitilityVersion = "2.0.0"
@@ -25,6 +27,8 @@ libraryDependencies ++= Seq(
   "org.jooq"        % "jooq"          % jooqVersion,
   "org.jooq"        % "jooq-meta"     % jooqVersion,
   "org.jooq"        % "jooq-codegen"  % jooqVersion,
+
+  "com.amazonaws"   % "aws-java-sdk"  % awsVersion,
 
   "com.h2database"  % "h2"            % h2Version         % Test,
   "org.assertj"     % "assertj-core"  % assertjVersion    % Test,
