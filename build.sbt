@@ -56,6 +56,7 @@ genJooqModel := genJooqTask.value
 
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
+javaOptions in Test += "-Dconfig.file=test/conf/application-test.conf"
 
 
 // **************************************************************
