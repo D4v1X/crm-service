@@ -28,8 +28,9 @@ From the root directory of the project:
 
 - Compile the project: ```$ sbt compile```
 - Run the project: ```$ sbt run```
-- The dist task builds a binary version of your application that you can deploy to a server without any dependency on SBT, 
-the only thing the server needs is a Java installation. ```$ sbt dist```
+- The stage task builds a binary version of your application. ```$ sbt stage```
+- Run tests: ```$ sbt test``` 
+Notes: The application includes 25 unit tests that make use of JUnit as the testing framework and an in-memory H2 database.
 
 ### Application Design
 ---------------------
@@ -132,8 +133,8 @@ X-USER-TOKEN: lqp88ahbv66c1cu0d31pbjurh8
 ```
 {
     "id": 4,
-    "name": "Abra",
-    "surname": "<script>",
+    "name": "Xema",
+    "surname": "Lohan",
     "photo": "data:image/png;base64,iVBORw........kAAAAASUVORK5CYII=",
     "createdByUser": "user",
     "created": "2018-04-08T15:14:24.761535",
