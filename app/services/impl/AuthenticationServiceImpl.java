@@ -8,9 +8,7 @@ import org.jooq.DSLContext;
 import play.Logger;
 import repositories.UserRepository;
 import services.AuthenticationService;
-import utils.Constants;
-import utils.EncryptionUtil;
-import utils.TokenUtil;
+import utils.*;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
@@ -30,6 +28,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public CompletionStage<UserSessionData> login(DSLContext create, UserLogin userLogin) {
         return CompletableFuture.supplyAsync(() -> {
+
+            Validator.apply(
+                    Validation.with(
+                            Optional.ofNullable(userLogin.getEmail()).isPresent(),
+                            "Email is required fields" ),
+                    Validation.with(
+                            Optional.ofNullable(userLogin.getPassword()).isPresent(),
+                            "Password is required fields" )
+            ).validate();
 
             Optional<User> optionalUser = userRepository.findByEmail(create, userLogin.getEmail());
             User user = optionalUser.orElseThrow(() -> {

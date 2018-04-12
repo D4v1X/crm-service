@@ -38,16 +38,6 @@ public class UserController extends BaseController {
     @Secured(rolesAllowed = {Role.ADMIN})
     public CompletionStage<Result> create() {
         NewUserRequest newUserRequest = Json.fromJson(request().body().asJson(), NewUserRequest.class);
-
-        Validator.apply(
-                Validation.with(
-                        Optional.ofNullable(newUserRequest.getEmail()).isPresent(),
-                        "Email is required fields"),
-                Validation.with(
-                        Optional.ofNullable(newUserRequest.getPassword()).isPresent(),
-                        "Password is required fields")
-        ).validate();
-
         return withTransaction(ctx -> userService.create(ctx, newUserRequest))
                 .thenApply(nothing -> created());
     }

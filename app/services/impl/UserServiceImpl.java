@@ -11,6 +11,8 @@ import play.Logger;
 import repositories.UserRepository;
 import services.UserService;
 import utils.EncryptionUtil;
+import utils.Validation;
+import utils.Validator;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CompletionStage<Void> create(DSLContext create, NewUserRequest newUserRequest) {
-        return CompletableFuture.runAsync(() -> userRepository.create(create, generateUser(newUserRequest)));
+        return CompletableFuture.runAsync(() -> {
+
+            Validator.apply(
+                    Validation.with(
+                            Optional.ofNullable(newUserRequest.getEmail()).isPresent(),
+                            "Email is required fields"),
+                    Validation.with(
+                            Optional.ofNullable(newUserRequest.getPassword()).isPresent(),
+                            "Password is required fields")
+            ).validate();
+
+            userRepository.create(create, generateUser(newUserRequest));
+        });
     }
 
 
@@ -54,7 +68,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CompletionStage<Void> delete(DSLContext create, Integer userId) {
-        return CompletableFuture.runAsync(() -> userRepository.delete(create, userId));
+        return CompletableFuture.runAsync(() -> {
+
+            userRepository.findById(create, userId)
+                    .orElseThrow(() -> {
+                        Logger.error("The user [id: " + userId + " ] that is intended to delete does not exist." );
+                        return new IllegalArgumentException("The user that is intended to delete does not exist." );
+                    });
+
+            userRepository.delete(create, userId);
+        });
     }
 
     @Override
@@ -81,6 +104,7 @@ public class UserServiceImpl implements UserService {
         newUser.setName(userResource.getName());
         newUser.setEmail(userResource.getEmail());
 
+        // Use case: User creation without defined role. (Default role: User)
         newUser.setRole(Optional.ofNullable(userResource.getRole()).orElse(Role.USER));
 
         String secret = EncryptionUtil.generateSecret();

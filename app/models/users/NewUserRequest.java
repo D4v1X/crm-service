@@ -13,6 +13,19 @@ public class NewUserRequest {
     public NewUserRequest() {
     }
 
+    public NewUserRequest(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public NewUserRequest(String name, String email, String password, Role role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }
